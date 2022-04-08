@@ -9,7 +9,7 @@ $ kubectl apply -f setup.yaml
 namespace/g04 created
 pod/backend created
 pod/frontend created
-pod/nginx created
+pod/other created
 ```
 
 The namespace `g04` runs the following Pods. Use the `-o wide` CLI option to determine the virtual IP addresses assigned to the Pods.
