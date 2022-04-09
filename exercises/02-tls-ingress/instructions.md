@@ -1,4 +1,4 @@
-# Exercise 1
+# Exercise 2
 
 You are tasked to create an Ingress with TLS termination.
 
