@@ -1,1 +1,7 @@
 .DS_Store
+kubeadm
+kubeadm.sha256
+kubectl
+kubectl.sha256
+kubelet
+kubelet.sha256
