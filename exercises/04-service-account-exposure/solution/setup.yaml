@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k97
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-pod-api
+  namespace: k97
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-configmap-api
+  namespace: k97
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-operations-clusterrole
+  namespace: k97
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: configmap-operations-clusterrole
+  namespace: k97
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: serviceaccount-pod-clusterrolebinding
+  namespace: k97
+subjects:
+- kind: ServiceAccount
+  name: sa-pod-api
+roleRef:
+  kind: ClusterRole
+  name: pod-operations-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: serviceaccount-configmap-clusterrolebinding
+  namespace: k97
+subjects:
+- kind: ServiceAccount
+  name: sa-configmap-api
+roleRef:
+  kind: ClusterRole
+  name: configmap-operations-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-list
+  namespace: k97
+spec:
+  serviceAccountName: sa-pod-api
+  containers:
+  - name: pods-operation
+    image: alpine/curl:3.14
+    command: ['sh', '-c', 'while true; do if curl -s -o /dev/null -k -m 5 -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://kubernetes.default.svc.cluster.local/api/v1/namespaces/k75/pods; then echo "[SUCCESS] Listing Pods..."; else echo "[ERROR] Listing Pods..."; fi; sleep 10; done']
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-list
+  namespace: k97
+spec:
+  serviceAccountName: sa-configmap-api
+  containers:
+  - name: configmaps-operation
+    image: alpine/curl:3.14
+    command: ['sh', '-c', 'while true; do if curl -s -o /dev/null -k -m 5 -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://kubernetes.default.svc.cluster.local/api/v1/namespaces/k75/configmaps; then echo "[SUCCESS] Listing ConfigMaps..."; else echo "[ERROR] Listing ConfigMaps..."; fi; sleep 10; done']
