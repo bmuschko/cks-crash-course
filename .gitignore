@@ -1,4 +1,9 @@
 .DS_Store
+.vagrant
+kubeadm-init.out
+admin.conf
+*-console.log
+
 kubeadm
 kubeadm.sha256
 kubectl
