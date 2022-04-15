@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: root-user-container
+  namespace: k29
+spec:
+  serviceAccountName: sa-gov
+  containers:
+  - image: nginx:1.18.0
+    name: secured-container
