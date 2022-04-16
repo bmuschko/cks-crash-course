@@ -1,4 +1,4 @@
-# Exercise 7
+# Exercise 8
 
 A Pod needs username and password credentials for communicating with a third-party web service. Define a Secret for basic authentication and inject the credentials into the container as environment variables.
 
