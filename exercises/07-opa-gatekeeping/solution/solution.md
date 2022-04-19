@@ -123,3 +123,37 @@ The Deployment object can be created.
 $ kubectl apply -f deployment.yaml
 deployment.apps/nginx-deployment created
 ```
+
+## Delete the OPA Gatekeeper
+
+Delete the OPA gatekeeper objects with the same manifest used to create them.
+
+```
+$ kubectl delete -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.7/deploy/gatekeeper.yaml
+namespace "gatekeeper-system" deleted
+resourcequota "gatekeeper-critical-pods" deleted
+customresourcedefinition.apiextensions.k8s.io "assign.mutations.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "assignmetadata.mutations.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "configs.config.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "constraintpodstatuses.status.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "constrainttemplatepodstatuses.status.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "constrainttemplates.templates.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "modifyset.mutations.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "mutatorpodstatuses.status.gatekeeper.sh" deleted
+customresourcedefinition.apiextensions.k8s.io "providers.externaldata.gatekeeper.sh" deleted
+serviceaccount "gatekeeper-admin" deleted
+Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+podsecuritypolicy.policy "gatekeeper-admin" deleted
+role.rbac.authorization.k8s.io "gatekeeper-manager-role" deleted
+clusterrole.rbac.authorization.k8s.io "gatekeeper-manager-role" deleted
+rolebinding.rbac.authorization.k8s.io "gatekeeper-manager-rolebinding" deleted
+clusterrolebinding.rbac.authorization.k8s.io "gatekeeper-manager-rolebinding" deleted
+secret "gatekeeper-webhook-server-cert" deleted
+service "gatekeeper-webhook-service" deleted
+deployment.apps "gatekeeper-audit" deleted
+deployment.apps "gatekeeper-controller-manager" deleted
+Warning: policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable in v1.25+; use policy/v1 PodDisruptionBudget
+poddisruptionbudget.policy "gatekeeper-controller-manager" deleted
+mutatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-mutating-webhook-configuration" deleted
+validatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-validating-webhook-configuration" deleted
+```

@@ -8,3 +8,4 @@ Your organization decides to introduce and enforce policies for Pods. You will c
 4. Create an OPA constraint for Deployments that requires two annotations to be defined specified by the keys `contact` and `commit-hash`.
 5. Create a Deployment that does not define the annotations. What's the behavior?
 6. Create a Deployment that does define the annotations. What's the behavior?
+7. Delete the OPA gatekeeper objects.
