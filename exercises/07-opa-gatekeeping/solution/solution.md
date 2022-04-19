@@ -122,7 +122,7 @@ The Deployment object can be created.
 ```
 $ kubectl apply -f deployment.yaml
 deployment.apps/nginx-deployment created
-```
+``` 
 
 ## Delete the OPA Gatekeeper
 
@@ -156,4 +156,11 @@ Warning: policy/v1beta1 PodDisruptionBudget is deprecated in v1.21+, unavailable
 poddisruptionbudget.policy "gatekeeper-controller-manager" deleted
 mutatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-mutating-webhook-configuration" deleted
 validatingwebhookconfiguration.admissionregistration.k8s.io "gatekeeper-validating-webhook-configuration" deleted
+```
+
+The gatekeeper namespace and its objects does not exist anymore.
+
+```
+$ kubectl get ns gatekeeper-system
+Error from server (NotFound): namespaces "gatekeeper-system" not found
 ```
