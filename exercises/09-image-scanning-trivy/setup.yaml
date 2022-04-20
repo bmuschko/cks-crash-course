@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: r61
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    tier: backend
+  name: backend
+  namespace: r61
+spec:
+  containers:
+  - image: bmuschko/nodejs-hello-world:1.0.0
+    name: hello
+    ports:
+    - containerPort: 3000
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loop
+  namespace: r61
+spec:
+  containers:
+  - image: alpine:3.13.4
+    name: loop
+    args:
+    - /bin/sh
+    - -c
+    - while true; do sleep 5; done;
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logstash
+  namespace: r61
+spec:
+  containers:
+  - image: elastic/logstash:7.13.3
+    name: logstash
+  restartPolicy: Never
