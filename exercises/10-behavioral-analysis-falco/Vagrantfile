@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
       end
       node.vm.provision "shell", path: "../scripts/common.sh"
       node.vm.provision "shell", path: "../scripts/worker.sh", args: "#{i}"
+      node.vm.provision "shell", path: "../scripts/falco-install.sh"
     end
   end
 
