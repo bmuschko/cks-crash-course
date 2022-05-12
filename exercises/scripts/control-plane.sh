@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
 
-POD_CIDR=$1
-API_ADV_ADDRESS=$2
+NODE_HOST_IP=$1
+POD_CIDR=$2
+API_ADV_ADDRESS=$3
 
+# Initialize control plane node
 kubeadm init --pod-network-cidr $POD_CIDR --apiserver-advertise-address $API_ADV_ADDRESS | tee /vagrant/kubeadm-init.out
 
+# Copy shared files between nodes
 mkdir -p /home/vagrant/.kube
 cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
 chown vagrant:vagrant /home/vagrant/.kube/config
 mkdir -p /root/.kube
 cp -i /etc/kubernetes/admin.conf /root/.kube/config
-
-kubectl apply -f https://docs.projectcalico.org/v3.22/manifests/calico.yaml
-
 cp /etc/kubernetes/admin.conf /vagrant/admin.conf
+
+# Install CNI plugin
+kubectl apply -f https://projectcalico.docs.tigera.io/v3.23/manifests/calico.yaml
+
+# Set internal node IP address to VM host IP address
+echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$NODE_HOST_IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet

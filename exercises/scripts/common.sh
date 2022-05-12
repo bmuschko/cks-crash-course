@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -z ${K8S_VERSION+x} ]; then
-  K8S_VERSION=1.23.4-00
+  K8S_VERSION=1.23.6-00
 fi
 
 apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
@@ -20,7 +20,7 @@ apt-get install -y \
   htop \
   httpie \
   bash-completion \
-  docker-ce=5:19.03.14~3-0~ubuntu-bionic \
+  docker-ce \
   kubeadm=$K8S_VERSION \
   kubelet=$K8S_VERSION \
   kubectl=$K8S_VERSION
@@ -39,3 +39,6 @@ mkdir -p /etc/systemd/system/docker.service.d
 
 systemctl daemon-reload
 systemctl restart docker
+
+# Set alias for kubectl command
+echo "alias k=kubectl" >> /home/vagrant/.bashrc
