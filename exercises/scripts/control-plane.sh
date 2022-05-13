@@ -18,6 +18,5 @@ cp /etc/kubernetes/admin.conf /vagrant/admin.conf
 kubectl apply -f https://projectcalico.docs.tigera.io/v3.23/manifests/calico.yaml
 
 # Set internal node IP address to VM host IP address
-echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$NODE_HOST_IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-sudo systemctl daemon-reload
+echo "KUBELET_EXTRA_ARGS=--node-ip=$NODE_HOST_IP --cgroup-driver=systemd" > /etc/default/kubelet
 sudo systemctl restart kubelet
