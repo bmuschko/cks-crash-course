@@ -2,10 +2,9 @@
 
 NODE_HOST_IP=$1
 POD_CIDR=$2
-API_ADV_ADDRESS=$3
 
 # Initialize control plane node
-kubeadm init --pod-network-cidr $POD_CIDR --apiserver-advertise-address $API_ADV_ADDRESS | tee /vagrant/kubeadm-init.out
+kubeadm init --pod-network-cidr $POD_CIDR --apiserver-advertise-address $NODE_HOST_IP | tee /vagrant/kubeadm-init.out
 
 # Copy shared files between nodes
 mkdir -p /home/vagrant/.kube
