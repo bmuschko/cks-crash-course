@@ -15,7 +15,7 @@ kind: Policy
 rules:
 - level: Metadata
   resources:
-  - group: "apps"
+  - group: ""
     resources: ["pods", "deployments", "services"]
 - level: RequestResponse
   resources:
@@ -38,9 +38,14 @@ Create a Pod to produce an audit log entry.
 
 ```
 $ kubectl run nginx --image=nginx:1.21.6
+pod/nginx created
 ```
 
-Check the audit log file at `~/events.log`. You should find an entry for the Pod creation event.
+Check the audit log of type `audit.k8s.io/v1`. You should find an entry for the Pod creation event.
 
 ```
+$ kubectl logs kube-apiserver-minikube -n kube-system | grep audit.k8s.io/v1
+{"kind":"Event","apiVersion":"audit.k8s.io/v1","level":"Metadata","auditID":"6c3b62fc-41e7-4f74-b8aa-82e943039013","stage":"ResponseComplete","requestURI":"/api/v1/namespaces/default/pods?fieldManager=kubectl-run","verb":"create","user":{"username":"minikube-user","groups":["system:masters","system:authenticated"]},"sourceIPs":["192.168.64.1"],"userAgent":"kubectl/v1.23.5 (darwin/amd64) kubernetes/c285e78","objectRef":{"resource":"pods","namespace":"default","name":"nginx","apiVersion":"v1"},"responseStatus":{"metadata":{},"code":201},"requestReceivedTimestamp":"2022-05-18T15:48:37.388237Z","stageTimestamp":"2022-05-18T15:48:37.395604Z","annotations":{"authorization.k8s.io/decision":"allow","authorization.k8s.io/reason":""}}
+{"kind":"Event","apiVersion":"audit.k8s.io/v1","level":"Metadata","auditID":"3afbcd1e-1c1b-4ae5-800d-b3a5c78ec665","stage":"RequestReceived","requestURI":"/api/v1/namespaces/default/pods/nginx","verb":"get","user":{"username":"system:node:minikube","groups":["system:nodes","system:authenticated"]},"sourceIPs":["192.168.64.61"],"userAgent":"kubelet/v1.22.3 (linux/amd64) kubernetes/c920368","objectRef":{"resource":"pods","namespace":"default","name":"nginx","apiVersion":"v1"},"requestReceivedTimestamp":"2022-05-18T15:48:37.414676Z","stageTimestamp":"2022-05-18T15:48:37.414676Z"}
+{"kind":"Event","apiVersion":"audit.k8s.io/v1","level":"Metadata","auditID":"3afbcd1e-1c1b-4ae5-800d-b3a5c78ec665","stage":"ResponseComplete","requestURI":"/api/v1/namespaces/default/pods/nginx","verb":"get","user":{"username":"system:node:minikube","groups":["system:nodes","system:authenticated"]},"sourceIPs":["192.168.64.61"],"userAgent":"kubelet/v1.22.3 (linux/amd64) kubernetes/c920368","objectRef":{"resource":"pods","namespace":"default","name":"nginx","apiVersion":"v1"},"responseStatus":{"metadata":{},"code":200},"requestReceivedTimestamp":"2022-05-18T15:48:37.414676Z","stageTimestamp":"2022-05-18T15:48:37.427821Z","annotations":{"authorization.k8s.io/decision":"allow","authorization.k8s.io/reason":""}}
 ```
