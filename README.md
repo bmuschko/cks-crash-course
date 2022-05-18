@@ -14,6 +14,8 @@ All [exercises](./exercises) are numbered and live in dedicated directories star
 
 ## Additional Resources
 
+* [Certified Kubernetes Administrator (CKA) Study Guide](https://learning.oreilly.com/library/view/certified-kubernetes-administrator/9781098107215/)
 * [Killer Shell](https://killer.sh/cks)
 * [Study4Exam CKS Exam](https://www.study4exam.com/linux-foundation/info/cks)
+* Udemy CKS 2022 Course](https://www.udemy.com/course/certified-kubernetes-security-specialist)
 * [KodeKloud CKS Course with Practice Tests](https://kodekloud.com/courses/certified-kubernetes-security-specialist-cks/)
