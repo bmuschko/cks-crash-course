@@ -1,5 +1,11 @@
 # Solution
 
+SSH into the control plane node.
+
+```
+$ vagrant ssh kube-control-plane
+```
+
 Before creating and enforcing the AppArmor profile, check the logs of the Pod `network-call`. The Pod run a `ping` command every 5 seconds. The command should be successful.
 
 ```
@@ -12,12 +18,12 @@ PING google.com (172.217.18.110): 56 data bytes
 round-trip min/avg/max/stddev = 31.155/31.155/31.155/0.000 ms
 ```
 
-On the `kube-worker-1` node, create the AppArmor profile at `/etc/apparmor.d/network-deny`.
+Create the AppArmor profile at `/etc/apparmor.d/network-deny`.
 
 ```
 #include <tunables/global>
 
-profile k8s-deny-write flags=(attach_disconnected) {
+profile network-deny flags=(attach_disconnected) {
   #include <abstractions/base>
 
   network,
@@ -30,7 +36,15 @@ Enforce the AppArmor profile by running the following command.
 $ sudo apparmor_parser /etc/apparmor.d/network-deny
 ```
 
-Modify the existing live Pod object. Add the annotation for AppArmor. Use the name of the container `alpine` as part of the key suffix. Use `localhost/network-deny` as the value. The suffix `network-deny` refers to the name of the AppArmor profile.
+You cannot modify the existing Pod object in order to add the annotation for AppArmor. You will need to delete the object first. Write the definition of the Pod to a file.
+
+```
+$ kubectl get pod -o yaml > pod.yaml
+$ kubectl delete pod network-call
+pod "network-call" deleted
+```
+
+Edit the `pod.yaml` file to add the AppArmor annotation. Use the name of the container `network-call` as part of the key suffix. Use `localhost/network-deny` as the value. The suffix `network-deny` refers to the name of the AppArmor profile. The final content could look as follows:
 
 ```yaml
 apiVersion: v1
@@ -38,10 +52,62 @@ kind: Pod
 metadata:
   name: network-call
   annotations:
-    container.apparmor.security.beta.kubernetes.io/alpine: localhost/network-deny
+    container.apparmor.security.beta.kubernetes.io/network-call: localhost/network-deny
 spec:
   containers:
-  - name: alpine
+  - name: network-call
     image: alpine/curl:3.14
-    command: [ "sh", "-c", "while true; do ping -c 1 google.com; sleep 5; done" ]
+    command: ["sh", "-c", "while true; do ping -c 1 google.com; sleep 5; done"]
+```
+
+Create the Pod from the manifest. You will see that the status is "Blocked". The reason for this status is that the AppArmor profile does not exist on the worker node. That's where the Kubernetes scheduler wants to run the Pod.
+
+```
+$ kubectl create -f pod.yaml
+pod/network-call created
+$ kubectl get pod network-call
+NAME           READY   STATUS    RESTARTS   AGE
+network-call   0/1     Blocked   0          22s
+```
+
+Exit out of the control plane node and SSH into the worker node.
+
+```
+$ exit
+$ vagrant ssh kube-worker-1
+```
+
+Create the AppArmor profile at `/etc/apparmor.d/network-deny`.
+
+```
+#include <tunables/global>
+
+profile network-deny flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  network,
+}
+```
+
+Enforce the AppArmor profile by running the following command.
+
+```
+$ sudo apparmor_parser /etc/apparmor.d/network-deny
+```
+
+After a couple of seconds, the Pod should transition into the "Running" status.
+
+```
+$ kubectl get pod network-call
+NAME           READY   STATUS    RESTARTS   AGE
+network-call   1/1     Running   0          27s
+```
+
+AppArmor prevents the Pod from making a network call. You can check the logs to verify.
+
+```
+$ kubectl logs network-call
+...
+sh: ping: Permission denied
+sh: sleep: Permission denied
 ```
