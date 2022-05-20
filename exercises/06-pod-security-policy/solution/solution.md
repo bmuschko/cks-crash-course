@@ -62,7 +62,7 @@ spec:
     rule: RunAsAny
 ```
 
-Create the object.
+Create the object. The deprecation message is to be expected.
 
 ```
 $ kubectl apply -f psp-non-root-user.yaml
