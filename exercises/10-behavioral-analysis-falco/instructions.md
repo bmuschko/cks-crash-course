@@ -2,7 +2,7 @@
 
 Your task is to configure [Falco](https://falco.org/docs) to run behavioral analysis for your cluster. Configure a rule that detects if an attacker is trying to open a shell to a container using the `bash` shell. The Falco executable has already been installed.
 
-> **_NOTE:_** Start the VMs using the command `vagrant up`. Depending on the hardware and network connectivity of your machine, this process may take a couple of minutes. After you are done with the exercise, shut down the VMs with the command `vagrant destroy -f`. The Kubernetes cluster consists of a control plane node running on `kube-control-plane` and `kube-worker-1`.
+> **_NOTE:_** Start the VMs using the command `vagrant up`. Depending on the hardware and network connectivity of your machine, this process may take a couple of minutes. After you are done with the exercise, shut down the VMs with the command `vagrant destroy -f`. The Kubernetes cluster consists of a control plane node running on `kube-control-plane` and `kube-worker-1`. You can SSH into a VM using the command `vagrant ssh <vm-name>`.
 
 1. After bringing up the cluster using Vagrant, open an interactive shell to the VM `kube-worker-1` via the command `vagrant ssh kube-worker-1`.
 2. Create a Pod named `nginx` that uses the image `nginx:1.20.2`. Ensure that the Pod transitions into the "Running" status.

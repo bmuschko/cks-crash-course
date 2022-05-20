@@ -18,7 +18,7 @@ NAME      SECRETS   AGE
 sa-gov    1         44s
 ```
 
-## Enable the Admission Controller Plugin
+## Enabling the Admission Controller Plugin
 
 If you are on Linux, you can edit the file `vim /etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
 
