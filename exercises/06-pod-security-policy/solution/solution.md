@@ -37,7 +37,7 @@ sa-gov    1         44s
 
 ## Creating the Pod Security Policy
 
-Create the Pod Security Policy named `psp-non-root-user` in the YAML manifest file `psp-non-root-user-non-privileged.yaml`. The setting that defines that only non-root user can run the container is `.spec.runAsUser.rule`. For more information, see the [documentation](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups).
+Create the Pod Security Policy named `psp-non-root-user-non-privileged` in the YAML manifest file `psp-non-root-user-non-privileged.yaml`. The setting that defines that only non-root user can run the container is `spec.runAsUser.rule`. The setting that requires privileged mode is `spec.privileged`. For more information, see the [documentation](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 ```yaml
 apiVersion: policy/v1beta1
