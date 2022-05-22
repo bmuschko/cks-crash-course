@@ -1,5 +1,23 @@
 # Solution
 
+## Enabling the Admission Controller Plugin
+
+If you are on Linux, you can edit the file `vim /etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
+
+```
+$ sudo vim /etc/kubernetes/manifests/kube-apiserver.yaml
+...
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - ...
+    - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
+```
+
+Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`.
+```
+
 ## Setting up the Objects
 
 Start by creating the objects from the existing YAML manifest.
@@ -18,40 +36,17 @@ NAME      SECRETS   AGE
 sa-gov    1         44s
 ```
 
-## Enabling the Admission Controller Plugin
-
-If you are on Linux, you can edit the file `vim /etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
-
-```
-$ vim /etc/kubernetes/manifests/kube-apiserver.yaml
-...
-spec:
-  containers:
-  - command:
-    - kube-apiserver
-    - ...
-    - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
-```
-
-Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`.
-
-To enable the plugin on Minikube, execute the following command:
-
-```
-$ minikube addons enable pod-security-policy
-🌟  The 'pod-security-policy' addon is enabled
-```
-
 ## Creating the Pod Security Policy
 
-Create the Pod Security Policy named `psp-non-root-user` in the YAML manifest file `psp-non-root-user.yaml`. The setting that defines that only non-root user can run the container is `.spec.runAsUser.rule`. For more information, see the [documentation](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups).
+Create the Pod Security Policy named `psp-non-root-user` in the YAML manifest file `psp-non-root-user-non-privileged.yaml`. The setting that defines that only non-root user can run the container is `.spec.runAsUser.rule`. For more information, see the [documentation](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 ```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: psp-non-root-user
+  name: psp-non-root-user-non-privileged
 spec:
+  privileged: false
   runAsUser:
     rule: 'MustRunAsNonRoot'
   fsGroup:
@@ -60,14 +55,16 @@ spec:
     rule: RunAsAny
   seLinux:
     rule: RunAsAny
+  volumes:
+  - '*'
 ```
 
 Create the object. The deprecation message is to be expected.
 
 ```
-$ kubectl apply -f psp-non-root-user.yaml
+$ kubectl apply -f psp-non-root-user-non-privileged.yaml
 Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
-podsecuritypolicy.policy/psp-non-root-user created
+podsecuritypolicy.policy/psp-non-root-user-non-privileged created
 ```
 
 ## Creating RBAC Objects
@@ -94,14 +91,13 @@ $ kubectl apply -f psp-clusterrole.yaml
 clusterrole.rbac.authorization.k8s.io/psp-clusterrole created
 ```
 
-Define a YAML manifest for the ClusterRoleBinding in the file named `psp-rolebinding.yaml`.
+Define a YAML manifest for the ClusterRoleBinding in the file named `psp-clusterrolebinding.yaml`.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: psp-rolebinding
-  namespace: k29
+  name: psp-clusterrolebinding
 roleRef:
   kind: ClusterRole
   name: psp-clusterrole
@@ -109,24 +105,50 @@ roleRef:
 subjects:
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
-  name: system:serviceaccounts:sa-gov
+  name: system:serviceaccounts:k29
 ```
 
 Create the object.
 
 ```
-$ kubectl apply -f psp-rolebinding.yaml
-rolebinding.rbac.authorization.k8s.io/psp-rolebinding created
+$ kubectl apply -f psp-clusterrolebinding.yaml
+clusterrolebinding.rbac.authorization.k8s.io/psp-clusterrolebinding created
 ```
 
 ## Enforcing the Behavior
 
+The Pod defined by the YAML manifest `pod-non-root.yaml` runs the container with the user ID 1001. The container does not require to run in privieged mode.
+
 ```
 $ kubectl apply -f pod-non-root.yaml
 pod/non-root-user-container created
+$ kubectl get pods -n k29
+NAME                      READY   STATUS    RESTARTS   AGE
+non-root-user-container   1/1     Running   0          11s
 ```
+
+The Pod defined by the YAML manifest `pod-root.yaml` runs the container with the root user and therefore is not allowed to run.
+
 
 ```
 $ kubectl apply -f pod-root.yaml
 pod/root-user-container created
+$ kubectl get pods -n k29
+NAME                      READY   STATUS                       RESTARTS   AGE
+non-root-user-container   1/1     Running                      0          54s
+root-user-container       0/1     CreateContainerConfigError   0          12s
+$ kubectl describe pod root-user-container -n k29
+...
+Events:
+  Type     Reason          Age                   From               Message
+  ----     ------          ----                  ----               -------
+  ...
+  Warning  Failed          105s (x11 over 3m7s)  kubelet            Error: container has runAsNonRoot and image will run as root (pod: "root-user-container_k29(1698ee59-7ecd-4cf9-9e38-c183cfc27434)", container: secured-container)
+```
+
+The Pod defined by the YAML manifest `pod-privileged.yaml` runs the container with the user ID 1001 but requests priviliged mode.
+
+```
+$ kubectl apply -f pod-privileged.yaml
+Error from server (Forbidden): error when creating "pod-privileged.yaml": pods "privileged-container" is forbidden: PodSecurityPolicy: unable to admit pod: [spec.containers[0].securityContext.privileged: Invalid value: true: Privileged containers are not allowed]
 ```
