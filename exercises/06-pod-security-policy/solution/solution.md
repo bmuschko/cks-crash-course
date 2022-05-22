@@ -16,7 +16,6 @@ spec:
 ```
 
 Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`.
-```
 
 ## Setting up the Objects
 
