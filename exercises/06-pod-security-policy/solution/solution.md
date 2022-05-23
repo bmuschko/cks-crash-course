@@ -1,8 +1,14 @@
 # Solution
 
+SSH into the control plane node.
+
+```
+$ vagrant ssh kube-control-plane
+```
+
 ## Enabling the Admission Controller Plugin
 
-If you are on Linux, you can edit the file `vim /etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
+If you are on Linux, you can edit the file `/etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
 
 ```
 $ sudo vim /etc/kubernetes/manifests/kube-apiserver.yaml
@@ -15,11 +21,25 @@ spec:
     - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
 ```
 
-Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`.
+Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`, e.g. the following:
+
+```
+$ kubectl get nodes
+The connection to the server 192.168.56.10:6443 was refused - did you specify the right host or port?
+```
+
+After a little while, the cluster will be functional again.
+
+```
+$ kubectl get nodes
+NAME                 STATUS   ROLES                  AGE     VERSION
+kube-control-plane   Ready    control-plane,master   5m31s   v1.23.6
+kube-worker-1        Ready    <none>                 3m57s   v1.23.6 
+```
 
 ## Setting up the Objects
 
-Start by creating the objects from the existing YAML manifest.
+Start by creating the objects from the existing YAML manifest named `setup.yaml`. Copy the contents to the VM and apply it YAML manifest.
 
 ```
 $ kubectl apply -f setup.yaml
