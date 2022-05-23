@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: accounting-ingress
+  namespace: t75
+spec:
+  tls:
+  - hosts:
+    - accounting.internal.acme.com
+    secretName: accounting-secret
+  rules:
+  - host: accounting.internal.acme.com
+    http:
+      paths:
+      - path: /accounting
+        pathType: Prefix
+        backend:
+          service:
+            name: accounting-service
+            port:
+              number: 80

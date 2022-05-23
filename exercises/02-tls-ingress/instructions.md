@@ -1,6 +1,6 @@
 # Exercise 2
 
-You are tasked to create an Ingress with TLS termination.
+You are tasked to create an Ingress with TLS termination. Create the relevant objects using the imperative or declarative approach.
 
 > **_NOTE:_** Kubernetes requires running an Ingress Controller to evaluate Ingress rules. Make sure your cluster employs an [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/). On Minikube, you can enable the Ingress Controller with the command `minikube addons enable ingress`. The corresponding controller will run in the `ingress-nginx` namespace. See the [Minikube documentation](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) for more information on setting up an Ingress Controller and DNS.
 
