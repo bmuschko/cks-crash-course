@@ -54,7 +54,7 @@ gatekeeper-controller-manager-77b7dc99fb-hh87d   1/1     Running   0          2m
 Create the OPA constraint template from the file.
 
 ```
-ubectl$ kubectl apply -f opa-constraint-template-annotation.yaml
+$ kubectl apply -f opa-constraint-template-annotation.yaml
 constrainttemplate.templates.gatekeeper.sh/k8srequiredannotations created
 ```
 
@@ -126,7 +126,7 @@ deployment.apps/nginx-deployment created
 
 ## Delete the OPA Gatekeeper
 
-Delete the OPA gatekeeper objects with the same manifest used to create them.
+Delete the OPA gatekeeper objects with the same manifest you used to create them.
 
 ```
 $ kubectl delete -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.7/deploy/gatekeeper.yaml
