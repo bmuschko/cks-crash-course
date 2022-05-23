@@ -9,7 +9,7 @@ $ vagrant ssh kube-control-plane
 Before creating and enforcing the AppArmor profile, check the logs of the Pod `network-call`. The Pod run a `ping` command every 5 seconds. The command should be successful.
 
 ```
-$ kubectl logs network-call
+vagrant@kube-control-plane:~$ kubectl logs network-call
 PING google.com (172.217.18.110): 56 data bytes
 64 bytes from 172.217.18.110: icmp_seq=0 ttl=119 time=31.155 ms
 
@@ -33,14 +33,14 @@ profile network-deny flags=(attach_disconnected) {
 Enforce the AppArmor profile by running the following command.
 
 ```
-$ sudo apparmor_parser /etc/apparmor.d/network-deny
+vagrant@kube-control-plane:~$ sudo apparmor_parser /etc/apparmor.d/network-deny
 ```
 
 You cannot modify the existing Pod object in order to add the annotation for AppArmor. You will need to delete the object first. Write the definition of the Pod to a file.
 
 ```
-$ kubectl get pod -o yaml > pod.yaml
-$ kubectl delete pod network-call
+vagrant@kube-control-plane:~$ kubectl get pod -o yaml > pod.yaml
+vagrant@kube-control-plane:~$ kubectl delete pod network-call
 pod "network-call" deleted
 ```
 
@@ -63,9 +63,9 @@ spec:
 Create the Pod from the manifest. You will see that the status is "Blocked". The reason for this status is that the AppArmor profile does not exist on the worker node. That's where the Kubernetes scheduler wants to run the Pod.
 
 ```
-$ kubectl create -f pod.yaml
+vagrant@kube-control-plane:~$ kubectl create -f pod.yaml
 pod/network-call created
-$ kubectl get pod network-call
+vagrant@kube-control-plane:~$ kubectl get pod network-call
 NAME           READY   STATUS    RESTARTS   AGE
 network-call   0/1     Blocked   0          22s
 ```
@@ -73,7 +73,7 @@ network-call   0/1     Blocked   0          22s
 Exit out of the control plane node and SSH into the worker node.
 
 ```
-$ exit
+vagrant@kube-control-plane:~$ exit
 $ vagrant ssh kube-worker-1
 ```
 
@@ -92,13 +92,13 @@ profile network-deny flags=(attach_disconnected) {
 Enforce the AppArmor profile by running the following command.
 
 ```
-$ sudo apparmor_parser /etc/apparmor.d/network-deny
+vagrant@kube-worker-1:~$ sudo apparmor_parser /etc/apparmor.d/network-deny
 ```
 
 After a couple of seconds, the Pod should transition into the "Running" status.
 
 ```
-$ kubectl get pod network-call
+vagrant@kube-worker-1:~$ kubectl get pod network-call
 NAME           READY   STATUS    RESTARTS   AGE
 network-call   1/1     Running   0          27s
 ```
@@ -106,7 +106,7 @@ network-call   1/1     Running   0          27s
 AppArmor prevents the Pod from making a network call. You can check the logs to verify.
 
 ```
-$ kubectl logs network-call
+vagrant@kube-worker-1:~$ kubectl logs network-call
 ...
 sh: ping: Permission denied
 sh: sleep: Permission denied
