@@ -31,7 +31,7 @@ You can inspect the configuration of the live objects using the `kubectl get pod
 The following list explains why a specific Pod is immutable or mutable.
 
 | Pod             | Mutability  | Reason |
-| --------------- | ----------- | ------ |
+| :-------------- | :---------- | :----- |
 | `busybox`       | mutable     | The container uses `hostNetwork` with the value `true`. |
 | `hello-world`   | mutable     | The container uses `securityContext.runAsUser` with the value `0`. |
 | `loop`          | mutable     | The container uses `securityContext.privileged` with the value `true`. |
