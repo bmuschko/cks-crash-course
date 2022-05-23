@@ -35,7 +35,7 @@ vagrant@kube-worker-1:~$ cat falco-open-shell.yaml
 Execute Falco with the following command.
 
 ```
-vagrant@kube-worker-1:~$ sudo falco -r rules.yaml -M 120
+vagrant@kube-worker-1:~$ sudo falco -r falco-open-shell.yaml -M 120
 Fri May 13 14:02:59 2022: Falco version 0.31.1 (driver version b7eb0dd65226a8dc254d228c8d950d07bf3521d2)
 Fri May 13 14:02:59 2022: Falco initialized with configuration file /etc/falco/falco.yaml
 Fri May 13 14:02:59 2022: Loading rules from file rules.yaml:

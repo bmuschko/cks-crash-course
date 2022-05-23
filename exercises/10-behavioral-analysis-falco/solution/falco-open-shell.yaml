@@ -1,0 +1,5 @@
+- rule: shell_in_container
+  desc: notice shell activity within a container
+  condition: container.id != host and proc.name = bash
+  output: shell in a container (user=%user.name container_name=%container.name)
+  priority: warning
