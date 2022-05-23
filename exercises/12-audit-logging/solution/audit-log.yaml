@@ -1,0 +1,16 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+- level: Metadata
+  resources:
+  - group: ""
+    resources: ["pods", "deployments", "services"]
+- level: RequestResponse
+  resources:
+  - group: ""
+    resources: ["configmaps", "secrets"]
+  namespaces: ["config-data"]
+- level: None
+  resources:
+  - group: ""
+    resources: ["pods/log", "pods/status"]
