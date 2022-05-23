@@ -67,7 +67,7 @@ $ kubectl delete pod pod-list -n k97
 pod "pod-list" deleted
 ```
 
-Now, apply the setup script.
+Now, apply the setup script in the `solution` folder or the one you modified.
 
 ```
 $ kubectl apply -f setup.yaml

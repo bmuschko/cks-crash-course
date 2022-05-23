@@ -1,6 +1,6 @@
 # Exercise 4
 
-The cluster defines a ClusterRole and ClusterRoleBinding that map a Service Account for listing, watching, and deleting the API resources Pods, ConfigMaps, Secrets. Two Pods defined in the namespace `k97` use the service account. You are tasked with reducing the permissions to the minimal set of permissions needed for the Pods.
+The cluster defines a ClusterRole and ClusterRoleBinding that map a Service Account for listing, watching, and deleting the API resources Pods, ConfigMaps, and Secrets. Two Pods defined in the namespace `k97` use the service account. You are tasked with reducing the permissions to the minimal set of permissions needed for the Pods based on the command running in the container.
 
 1. Create the objects from the file `setup.yaml`.
 2. Inspect the Pods and wait until they transition into the "Running" status.
