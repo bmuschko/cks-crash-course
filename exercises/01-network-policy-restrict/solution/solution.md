@@ -1,5 +1,50 @@
 # Solution
 
+## Setting up Cilium
+
+If you are using Minikube, you will need to use the following command line options when starting the cluster. This will prepare the cluster for the installation of Cilium.
+
+```
+$ minikube start --network-plugin=cni --cni=false
+```
+
+The following commands to download Cilium for use with Minikube on MacOSX.
+
+```
+$ curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-darwin-amd64.tar.gz{,.sha256sum}
+$ shasum -a 256 -c cilium-darwin-amd64.tar.gz.sha256sum
+$ sudo tar xzvfC cilium-darwin-amd64.tar.gz /usr/local/bin
+$ rm cilium-darwin-amd64.tar.gz{,.sha256sum}
+```
+
+Install Cilium with the following command.
+
+```
+$ cilium install
+🔮 Auto-detected Kubernetes kind: minikube
+✨ Running "minikube" validation checks
+✅ Detected minikube version "1.24.0"
+ℹ️  using Cilium version "v1.10.11"
+🔮 Auto-detected cluster name: minikube
+🔮 Auto-detected IPAM mode: cluster-pool
+🔮 Auto-detected datapath mode: tunnel
+🔑 Created CA in secret cilium-ca
+🔑 Generating certificates for Hubble...
+🚀 Creating Service accounts...
+🚀 Creating Cluster roles...
+🚀 Creating ConfigMap for Cilium version 1.10.11...
+🚀 Creating Agent DaemonSet...
+🚀 Creating Operator Deployment...
+⌛ Waiting for Cilium to be installed and ready...
+♻️  Restarting unmanaged pods...
+♻️  Restarted unmanaged pod default/other
+♻️  Restarted unmanaged pod g04/backend
+♻️  Restarted unmanaged pod g04/frontend
+✅ Cilium was successfully installed! Run 'cilium status' to view installation health
+```
+
+Refer to the [Cilium documentation](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/) for installing Cilium on all other platforms.
+
 ## Setting up the Pods
 
 Start by creating the objects from the existing YAML manifest.
