@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: server-app
+  namespace: d31
+spec:
+  containers:
+  - image: nginx:1.18.0
+    name: nginx
+    env:
+    - name: USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: api-basic-auth
+          key: username
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: api-basic-auth
+          key: password
+  restartPolicy: Never
