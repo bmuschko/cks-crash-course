@@ -28,7 +28,7 @@ nginx         1/1     Running     0          14s
 
 You can inspect the configuration of the live objects using the `kubectl get pod` command with the option `-o yaml`. For example, to inspect the configuration of the `busybox` Pod, run the command `kubectl get pod busybox -n h92 -o yaml`.
 
-The following list explains why a specific Pod is immutable or mutable.
+The following table explains why a specific Pod is immutable or mutable.
 
 | Pod             | Mutability  | Reason |
 | :-------------- | :---------- | :----- |
