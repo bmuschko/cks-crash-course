@@ -18,7 +18,7 @@ PING google.com (172.217.18.110): 56 data bytes
 round-trip min/avg/max/stddev = 31.155/31.155/31.155/0.000 ms
 ```
 
-Create the AppArmor profile at `/etc/apparmor.d/network-deny`.
+Create the AppArmor profile at `/etc/apparmor.d/network-deny` using the command `sudo vim /etc/apparmor.d/network-deny`. The contents of the file could look as follows.
 
 ```
 #include <tunables/global>
@@ -44,7 +44,7 @@ $ kubectl delete pod network-call
 pod "network-call" deleted
 ```
 
-Edit the `pod.yaml` file to add the AppArmor annotation. Use the name of the container `network-call` as part of the key suffix. Use `localhost/network-deny` as the value. The suffix `network-deny` refers to the name of the AppArmor profile. The final content could look as follows:
+Edit the `pod.yaml` file to add the AppArmor annotation. For the relevant annotation, use the name of the container `network-call` as part of the key suffix and `localhost/network-deny` as the value. The suffix `network-deny` refers to the name of the AppArmor profile. The final content could look as follows:
 
 ```yaml
 apiVersion: v1
@@ -77,7 +77,7 @@ $ exit
 $ vagrant ssh kube-worker-1
 ```
 
-Create the AppArmor profile at `/etc/apparmor.d/network-deny`.
+Create the AppArmor profile at `/etc/apparmor.d/network-deny` using the command `sudo vim /etc/apparmor.d/network-deny`. The contents of the file could look as follows.
 
 ```
 #include <tunables/global>
