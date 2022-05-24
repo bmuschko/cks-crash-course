@@ -7,4 +7,4 @@ You logged into a Kubernetes clusters and are planning to verifying the validity
 1. Create the directory named `kubernetes-bin`. Navigate to the directory.
 2. Copy the script `setup.sh` into the new directory and run it. It will download the Kubernetes binaries for Linux AMD64.
 3. Inspect the downloaded files.
-4. Verifying that the downloaded binaries are compatible with the Kubernetes version 1.23.5 by comparing them with the corresponding checksum files.
+4. Verify that the downloaded binaries are compatible with the Kubernetes version 1.23.5 by comparing them with the corresponding checksum files.
