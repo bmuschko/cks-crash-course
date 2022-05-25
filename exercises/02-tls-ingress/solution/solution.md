@@ -8,10 +8,10 @@ Start by creating the objects from the existing YAML manifest.
 $ kubectl apply -f setup.yaml
 namespace/t75 created
 deployment.apps/nginx-deployment created
-service/nginx-service created
+service/accounting-service created
 ```
 
-The objects create can be queried for. We create a Deployment named `nginx-deployment` with three replicas.
+The objects create can be queried for. We create a Deployment named `nginx-deployment` with three replicas, and a Service named `accounting-service` of type `ClusterIP`.
 
 ```
 $ kubectl get all -n t75
@@ -20,8 +20,8 @@ pod/nginx-deployment-9456bbbf9-nlv6g   1/1     Running   0          18s
 pod/nginx-deployment-9456bbbf9-wc2r4   1/1     Running   0          18s
 pod/nginx-deployment-9456bbbf9-zq5zc   1/1     Running   0          18s
 
-NAME                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-service/nginx-service   ClusterIP   10.106.136.234   <none>        80/TCP    18s
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+service/accounting-service   ClusterIP   10.106.136.234   <none>        80/TCP    18s
 
 NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/nginx-deployment   3/3     3            3           18s
