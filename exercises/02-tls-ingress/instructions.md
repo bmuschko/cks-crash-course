@@ -2,7 +2,7 @@
 
 You are tasked to create an Ingress with TLS termination. Create the relevant objects using the imperative or declarative approach.
 
-> **_NOTE:_** Kubernetes requires running an Ingress Controller to evaluate Ingress rules. Make sure your cluster employs an [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/). On Minikube, you can enable the Ingress Controller with the command `minikube addons enable ingress`. The corresponding controller will run in the `ingress-nginx` namespace. See the [Minikube documentation](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/) for more information on setting up an Ingress Controller and DNS.
+> **_NOTE:_** Kubernetes requires running an Ingress Controller to evaluate Ingress rules. Make sure your cluster employs an [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/). You can find installation guidance in the file [ingress-controller-setup.md](./ingress-controller-setup.md).
 
 1. Create the objects defined by the YAML manifest `setup.yaml`. You will end up with a Deployment, multiple Pods, and a Service in the namespace `t75`.
 2. Generate a TLS certificate and key using OpenSSL with the command `openssl req -nodes -new -x509 -keyout accounting.key -out accounting.crt -subj "/CN=accounting.tls"`.
