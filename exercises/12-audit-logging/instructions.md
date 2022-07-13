@@ -2,7 +2,7 @@
 
 The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. In your role as an administrator, you are tasked to configure audit logging for specific events.
 
-> **_NOTE:_** If you are using Minikube, assign the `-` character as the value for the audit log file. You will find the audit log entries in the logs of the Pod named `kube-apiserver-minikube` in the namespace `kube-system`.
+> **_NOTE:_** For file system audit log backend, you will have to configure the API server with additional CLI flags.  You can find installation guidance in the file [audit-log-backend-setup.md](./audit-log-backend-setup.md).
 
 1. Create the audit policy file named `audit-log.yaml`.
 2. Add a rule for logging `Metadata`-level events for Deployments, Pods, and Services in all namespaces.

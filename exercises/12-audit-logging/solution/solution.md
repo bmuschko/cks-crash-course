@@ -1,8 +1,8 @@
 # Solution
 
-## Setting up audit logging for Minikube
+## Creating the Audit Policy File
 
-Create the audit policy file. Create the file in the directory `~/.minikube/files/etc/ssl/certs` if you are using Minikube. If you are using a different Kubernetes environment, you can go with any other directory.
+Create the audit policy file. The following paths assume a minikube environment. For any other Kubernetes cluster, you can pick any other path.
 
 ```
 $ mkdir -p ~/.minikube/files/etc/ssl/certs
@@ -30,13 +30,7 @@ rules:
     resources: ["pods/log", "pods/status"]
 ```
 
-Set the relevant configuration options for enabling the audit log in the command line options of the API server. If you are using Minikube, you will have to restart the process. You will not have to set the Volume for the audit policy file and log output directory. Refer to the [Kubernetes documentation](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/#log-backend), for setting up the audit logs in a standard Kubernetes cluster.
-
-```
-$ minikube start --extra-config=apiserver.audit-policy-file=/etc/ssl/certs/audit-log.yaml --extra-config=apiserver.audit-log-path=- --extra-config=apiserver.audit-log-maxage=30
-```
-
-## Creating audit log entries
+## Creating Audit Log Entries
 
 Create a Pod to produce an audit log entry.
 
@@ -45,7 +39,7 @@ $ kubectl run nginx --image=nginx:1.21.6
 pod/nginx created
 ```
 
-Check the audit log of type `audit.k8s.io/v1`. You should find an entry for the Pod creation event in the logs of the Pod named `kube-apiserver-minikube` in the namespace `kube-system`. Check the audit log file if you are using a different Kubernetes environment than Minikube.
+Check the audit log of type `audit.k8s.io/v1`. If you are using minikube, you should find an entry for the Pod creation event in the logs of the Pod named `kube-apiserver-minikube` in the namespace `kube-system`. Check the audit log file if you are using a different Kubernetes environment than Minikube.
 
 ```
 $ kubectl logs kube-apiserver-minikube -n kube-system | grep audit.k8s.io/v1
