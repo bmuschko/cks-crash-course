@@ -124,7 +124,7 @@ $ kubectl apply -f deployment.yaml
 deployment.apps/nginx-deployment created
 ``` 
 
-## Delete the OPA Gatekeeper
+## Deleting the OPA Gatekeeper
 
 Delete the OPA gatekeeper objects with the same manifest you used to create them.
 
