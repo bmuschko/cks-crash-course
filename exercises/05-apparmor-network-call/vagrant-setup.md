@@ -6,7 +6,7 @@ Start the VMs using the command `vagrant up`. Depending on the hardware and netw
 $ vagrant up
 ```
 
-The Kubernetes cluster consists of a control plane node running on `kube-control-plane` and a worker node `kube-worker-1`. You can SSH into a VM using the command `vagrant ssh <vm-name>`. The following command shows how to shell into the VM `kube-control-plane`.
+The Kubernetes cluster consists of a control plane node running on `kube-control-plane` and a worker node `kube-worker-1`. You can SSH into a VM using the command `vagrant ssh <vm-name>`. The following command shows how to shell into the VM `kube-control-plane`. To leave the VM, run the `exit` command.
 
 ```
 $ vagrant ssh kube-control-plane
