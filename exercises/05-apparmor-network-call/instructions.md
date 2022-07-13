@@ -1,11 +1,12 @@
 # Exercise 5
 
-You are tasked to prevent a Pod from making any network calls with the help of AppArmor. You will create a AppArmor profile, and enforce the profile on the node that runs a specific Pod.
+You are tasked to prevent a Pod from making any network calls with the help of [AppArmor](https://apparmor.net/). You will create a AppArmor profile, and enforce the profile on the node that runs a specific Pod.
 
-> **_NOTE:_** AppArmor is a Linux-only tool. For that purpose, this exercise uses a Linux-based Kubernetes cluster running VMs. Start the VMs using the command `vagrant up`. Depending on the hardware and network connectivity of your machine, this process may take a couple of minutes. After you are done with the exercise, shut down the VMs with the command `vagrant destroy -f`. The Kubernetes cluster consists of a control plane node running on `kube-control-plane` and `kube-worker-1`. You can SSH into a VM using the command `vagrant ssh <vm-name>`.
+> **_NOTE:_** AppArmor is a Linux-only tool. For that reason, this exercise requires a cluster running on Linux. If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](./vagrant-setup.md).
 
-1. Check the logs of the Pod named `network-call`. What do you think the process running in the container is doing?
-2. Create an AppArmor profile file named `network-deny`. The profile should not allow any network traffic. Reference the [documentation](https://gitlab.com/apparmor/apparmor/-/wikis/QuickProfileLanguage) for more information.
-3. Add the profile to the set of rules in enforce mode.
-4. Apply the profile to the Pod named `network-call` running in the `default` namespace.
-5. Check the logs of the Pod to ensure that network calls cannot be made anymore.
+1. Execute the following command in the cluster: `kubectl run network-call --image=alpine/curl:3.14 -- /bin/sh -c 'while true; do ping -c 1 google.com; sleep 5; done'`. If you are using the Vagrant setup then this will happen automatically.
+2. Check the logs of the Pod named `network-call`. What do you think the process running in the container is doing?
+3. Create an AppArmor profile file named `network-deny`. The profile should not allow any network traffic. Reference the [documentation](https://gitlab.com/apparmor/apparmor/-/wikis/QuickProfileLanguage) for more information.
+4. Add the profile to the set of rules in enforce mode.
+5. Apply the profile to the Pod named `network-call` running in the `default` namespace.
+6. Check the logs of the Pod to ensure that network calls cannot be made anymore.
