@@ -1,6 +1,8 @@
 # Exercise 9
 
-You are confronted with a set of Pods running in a namespace. Find out which of the images running in the Pods have "CRITICAL" vulnerabilities. Delete the Pods with vulnerabilities higher than the "HIGH" severity.
+You are confronted with a set of Pods running in a namespace. Find out which of the images running in the Pods have "CRITICAL" vulnerabilities. Delete the Pods with vulnerabilities higher than the "HIGH" severity. To perform those action, we'll use the open source security scanner called [Trivy](https://github.com/aquasecurity/trivy).
+
+> **_NOTE:_** Trivy is not available in a Kubernetes cluster by default. You can find installation guidance in the file [trivy-setup.md](./trivy-setup.md).
 
 1. Create the objects from the file `setup.yaml`.
 2. List the Pods in the namespace `r61`.
