@@ -1,48 +1,11 @@
 # Solution
 
-SSH into the control plane node.
-
-```
-$ vagrant ssh kube-control-plane
-```
-
-## Enabling the Admission Controller Plugin
-
-If you are on Linux, you can edit the file `/etc/kubernetes/manifests/kube-apiserver.yaml`. Add the value `PodSecurityPolicy` to the parameter `--enable-admission-plugins`.
-
-```
-vagrant@kube-control-plane:~$ sudo vim /etc/kubernetes/manifests/kube-apiserver.yaml
-...
-spec:
-  containers:
-  - command:
-    - kube-apiserver
-    - ...
-    - --enable-admission-plugins=NodeRestriction,PodSecurityPolicy
-```
-
-Editing the configuration of the API server will automatically restart the Pod(s). Wait until the node comes back up. You may receive connection errors from the API server if you query for it with `kubectl get nodes`, e.g. the following:
-
-```
-vagrant@kube-control-plane:~$ kubectl get nodes
-The connection to the server 192.168.56.10:6443 was refused - did you specify the right host or port?
-```
-
-After a little while, the cluster will be functional again.
-
-```
-vagrant@kube-control-plane:~$ kubectl get nodes
-NAME                 STATUS   ROLES                  AGE     VERSION
-kube-control-plane   Ready    control-plane,master   5m31s   v1.23.6
-kube-worker-1        Ready    <none>                 3m57s   v1.23.6 
-```
-
 ## Setting up the Objects
 
 Start by creating the objects from the existing YAML manifest named `setup.yaml`. Copy the contents to the VM and apply it YAML manifest.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f setup.yaml
+$ kubectl apply -f setup.yaml
 namespace/k29 created
 serviceaccount/sa-gov created
 ```
@@ -50,7 +13,7 @@ serviceaccount/sa-gov created
 The service account object create can be queried for.
 
 ```
-vagrant@kube-control-plane:~$ kubectl get sa -n k29
+$ kubectl get sa -n k29
 NAME      SECRETS   AGE
 sa-gov    1         44s
 ```
@@ -81,7 +44,7 @@ spec:
 Create the object. The deprecation message is to be expected.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f psp-non-root-user-non-privileged.yaml
+$ kubectl apply -f psp-non-root-user-non-privileged.yaml
 Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
 podsecuritypolicy.policy/psp-non-root-user-non-privileged created
 ```
@@ -106,7 +69,7 @@ rules:
 Create the object.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f psp-clusterrole.yaml
+$ kubectl apply -f psp-clusterrole.yaml
 clusterrole.rbac.authorization.k8s.io/psp-clusterrole created
 ```
 
@@ -130,7 +93,7 @@ subjects:
 Create the object.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f psp-clusterrolebinding.yaml
+$ kubectl apply -f psp-clusterrolebinding.yaml
 clusterrolebinding.rbac.authorization.k8s.io/psp-clusterrolebinding created
 ```
 
@@ -139,9 +102,9 @@ clusterrolebinding.rbac.authorization.k8s.io/psp-clusterrolebinding created
 The Pod defined by the YAML manifest `pod-non-root.yaml` runs the container with the user ID 1001. The container does not require to run in privieged mode.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f pod-non-root.yaml
+$ kubectl apply -f pod-non-root.yaml
 pod/non-root-user-container created
-vagrant@kube-control-plane:~$ kubectl get pods -n k29
+$ kubectl get pods -n k29
 NAME                      READY   STATUS    RESTARTS   AGE
 non-root-user-container   1/1     Running   0          11s
 ```
@@ -150,13 +113,13 @@ The Pod defined by the YAML manifest `pod-root.yaml` runs the container with the
 
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f pod-root.yaml
+$ kubectl apply -f pod-root.yaml
 pod/root-user-container created
-vagrant@kube-control-plane:~$ kubectl get pods -n k29
+$ kubectl get pods -n k29
 NAME                      READY   STATUS                       RESTARTS   AGE
 non-root-user-container   1/1     Running                      0          54s
 root-user-container       0/1     CreateContainerConfigError   0          12s
-vagrant@kube-control-plane:~$ kubectl describe pod root-user-container -n k29
+$ kubectl describe pod root-user-container -n k29
 ...
 Events:
   Type     Reason          Age                   From               Message
@@ -168,6 +131,6 @@ Events:
 The Pod defined by the YAML manifest `pod-privileged.yaml` runs the container with the user ID 1001 but requests priviliged mode.
 
 ```
-vagrant@kube-control-plane:~$ kubectl apply -f pod-privileged.yaml
+$ kubectl apply -f pod-privileged.yaml
 Error from server (Forbidden): error when creating "pod-privileged.yaml": pods "privileged-container" is forbidden: PodSecurityPolicy: unable to admit pod: [spec.containers[0].securityContext.privileged: Invalid value: true: Privileged containers are not allowed]
 ```
