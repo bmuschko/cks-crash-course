@@ -4,9 +4,11 @@ Excercise will require the tooling listed below. Ensure that all of those tools 
 
 ## Installing Kubernetes
 
-Attendees will need access to a Kubernetes cluster, either local or remote. Align the version of Kubernetes with version used during the exam. The recommended setup for this course is to install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/). Minikube comes with a pre-installed Docker daemon.
+Attendees will need access to a Kubernetes cluster, either local or remote. Align the version of Kubernetes with version used during the exam.
 
-Alternatively, you may also go with [Docker Desktop](https://www.docker.com/products/docker-desktop) which is available for Mac and Windows. Docker Desktop provides an option to start a fully functional Kubernetes environment.
+One setup for this course is to install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/). Minikube comes with a pre-installed Docker daemon. Be aware that some exercises cannot be solved with minikube due to a lack of Kubernetes features.
+
+Some of the exercises use an existing cluster setup as the starting point. Install the latest version of the tools [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/). This will set up a multi-node Kubernetes cluster that runs on Linux VMs.
 
 ## Shell Environment and Editor
 
