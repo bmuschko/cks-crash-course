@@ -1,22 +1,18 @@
 # Solution
 
-Open a shell to `kube-worker-1`.
-
-```
-$ vagrant ssh kube-worker-1
-```
+Shell into a worker node.
 
 Create the nginx Pod with the following command:
 
 ```
-vagrant@kube-worker-1:~$ kubectl run nginx --image=nginx:1.20.2
+$ kubectl run nginx --image=nginx:1.20.2
 pod/nginx created
 ```
 
 Wait until the Pod transitions into the "Running" status.
 
 ```
-vagrant@kube-worker-1:~$ kubectl get pod nginx
+$ kubectl get pod nginx
 NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   0          17s
 ```
@@ -24,7 +20,7 @@ nginx   1/1     Running   0          17s
 Create the Falco rules file named `falco-open-shell.yaml`. The contents could look as follows:
 
 ```
-vagrant@kube-worker-1:~$ cat falco-open-shell.yaml
+$ cat falco-open-shell.yaml
 - rule: shell_in_container
   desc: notice shell activity within a container
   condition: container.id != host and proc.name = bash
@@ -35,7 +31,7 @@ vagrant@kube-worker-1:~$ cat falco-open-shell.yaml
 Execute Falco with the following command.
 
 ```
-vagrant@kube-worker-1:~$ sudo falco -r falco-open-shell.yaml -M 120
+$ sudo falco -r falco-open-shell.yaml -M 120
 Fri May 13 14:02:59 2022: Falco version 0.31.1 (driver version b7eb0dd65226a8dc254d228c8d950d07bf3521d2)
 Fri May 13 14:02:59 2022: Falco initialized with configuration file /etc/falco/falco.yaml
 Fri May 13 14:02:59 2022: Loading rules from file rules.yaml:
@@ -45,11 +41,10 @@ Rules match ignored syscall: warning (ignored-evttype):
 Fri May 13 14:02:59 2022: Starting internal webserver, listening on port 8765
 ```
 
-Open another shell to `kube-worker-1` and exec into the container of the `nginx` Pod using the `bash` command.
+Open another shell to the worker node and exec into the container of the `nginx` Pod using the `bash` command.
 
 ```
-$ vagrant ssh kube-worker-1
-vagrant@kube-worker-1:~$ kubectl exec -it nginx -- bash
+$ kubectl exec -it nginx -- bash
 root@nginx:/#
 ```
 
