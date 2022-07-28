@@ -43,7 +43,7 @@ writing new private key to 'accounting.key'
 -----
 ```
 
-The easiest way to create a Secret is with the help of an imperative command. This method of creation doesn't require base64-encoding the certificate and key values to. It happens automatically.
+The easiest way to create a Secret is with the help of an imperative command. This method of creation doesn't require base64-encoding the certificate and key values. It happens automatically.
 
 ```
 $ kubectl create secret tls accounting-secret --cert=accounting.crt --key=accounting.key -n t75
