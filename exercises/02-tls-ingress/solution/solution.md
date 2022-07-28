@@ -11,7 +11,7 @@ deployment.apps/nginx-deployment created
 service/accounting-service created
 ```
 
-The objects create can be queried for. We create a Deployment named `nginx-deployment` with three replicas, and a Service named `accounting-service` of type `ClusterIP`.
+The objects created can be queried for. We create a Deployment named `nginx-deployment` with three replicas, and a Service named `accounting-service` of type `ClusterIP`.
 
 ```
 $ kubectl get all -n t75
