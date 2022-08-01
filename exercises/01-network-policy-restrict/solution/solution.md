@@ -52,7 +52,8 @@ remote file exists
 ## Instating the "deny-all-ingress" network policy
 
 Create a ["deny-all-ingress" network policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/#default-deny-all-ingress-traffic) for the `g04` namespace in the form of a YAML manifest, as shown below.
-```
+
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -106,7 +107,7 @@ frontend   1/1     Running   0          9m46s   tier=frontend
 
 Create a new network policy that allows the `frontend` Pod to talk to the `backend` Pod on port 3000 only. No other communication should be allowed. The YAML manifest representation could look as follows.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
