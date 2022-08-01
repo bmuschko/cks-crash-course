@@ -52,8 +52,17 @@ remote file exists
 ## Instating the "deny-all-ingress" network policy
 
 Create a ["deny-all-ingress" network policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/#default-deny-all-ingress-traffic) for the `g04` namespace in the form of a YAML manifest, as shown below.
-
-[https://github.com/bmuschko/cks-crash-course/blob/98e4d1eb2f087c4226b1ff464bdf4e38302b21bc/exercises/01-network-policy-restrict/solution/deny-all-ingress-network-policy.yaml](https://github.com/bmuschko/cks-crash-course/blob/98e4d1eb2f087c4226b1ff464bdf4e38302b21bc/exercises/01-network-policy-restrict/solution/deny-all-ingress-network-policy.yaml#L1-L9)
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: g04
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+```
 
 The contents of the "deny-all" network policy has been saved in the file `deny-all-ingress-network-policy.yaml`. Create the object from the file.
 
