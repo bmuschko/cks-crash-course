@@ -43,6 +43,26 @@ $ cilium install
 ✅ Cilium was successfully installed! Run 'cilium status' to view installation health
 ```
 
+You can verify the correct installation with the following command.
+
+```
+$ cilium status --wait
+    /¯¯\
+ /¯¯\__/¯¯\    Cilium:         OK
+ \__/¯¯\__/    Operator:       OK
+ /¯¯\__/¯¯\    Hubble:         disabled
+ \__/¯¯\__/    ClusterMesh:    disabled
+    \__/
+
+DaemonSet         cilium             Desired: 1, Ready: 1/1, Available: 1/1
+Deployment        cilium-operator    Desired: 1, Ready: 1/1, Available: 1/1
+Containers:       cilium             Running: 1
+                  cilium-operator    Running: 1
+Cluster Pods:     1/1 managed by Cilium
+Image versions    cilium-operator    quay.io/cilium/operator-generic:v1.10.11@sha256:468ce59342298f1cf87ca8512cd9192754e83348b347a4bc7c27158ef9c4a37d: 1
+                  cilium             quay.io/cilium/cilium:v1.10.11@sha256:48e1a261046c2e534e370f960f0920233f9fd5ad4623aebdca0e403264a06202: 1
+```
+
 ## Using a Regular Kubernetes Cluster
 
 You can install Cilium on any generic Kubernetes cluster. The following instructions use Helm. Refer to the [Cilium documentation](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/) for more information.
