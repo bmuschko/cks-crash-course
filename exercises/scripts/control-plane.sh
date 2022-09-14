@@ -15,7 +15,7 @@ cp -i /etc/kubernetes/admin.conf /root/.kube/config
 cp /etc/kubernetes/admin.conf /vagrant/admin.conf
 
 # Install CNI plugin
-kubectl apply -f https://projectcalico.docs.tigera.io/v3.23/manifests/calico.yaml
+kubectl apply -f https://projectcalico.docs.tigera.io/archive/v3.23/manifests/calico.yaml
 
 # Set internal node IP address to VM host IP address
 echo "KUBELET_EXTRA_ARGS=--node-ip=$NODE_HOST_IP --cgroup-driver=systemd" > /etc/default/kubelet
