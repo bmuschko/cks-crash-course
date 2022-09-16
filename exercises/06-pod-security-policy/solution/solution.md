@@ -99,7 +99,7 @@ clusterrolebinding.rbac.authorization.k8s.io/psp-clusterrolebinding created
 
 ## Enforcing the Behavior
 
-The Pod defined by the YAML manifest `pod-non-root.yaml` runs the container with the user ID 1001. The container does not require to run in privieged mode.
+The Pod defined by the YAML manifest `pod-non-root.yaml` runs the container with the user ID 1001. The container does not require to run in privileged mode.
 
 ```
 $ kubectl apply -f pod-non-root.yaml
