@@ -2,7 +2,7 @@
 
 ## Setting up the Objects
 
-Start by creating the objects from the existing YAML manifest named `setup.yaml`. Copy the contents to the VM and apply it YAML manifest.
+Start by creating the objects from the existing YAML manifest named [`setup.yaml`](./setup.yaml). Copy the contents to the VM and apply it YAML manifest.
 
 ```
 $ kubectl apply -f setup.yaml

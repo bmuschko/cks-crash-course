@@ -4,7 +4,7 @@ You are confronted with a set of Pods running in a namespace. Find out which of 
 
 > **_NOTE:_** Trivy is not available in a Kubernetes cluster by default. You can find installation guidance in the file [trivy-setup.md](./trivy-setup.md).
 
-1. Create the objects from the file `setup.yaml`.
+1. Create the objects from the file [`setup.yaml`](./setup.yaml).
 2. List the Pods in the namespace `r61`.
 3. Install Trivy on the machine. Choose the installation method best suited for your operating system.
 4. Identify the images running in those Pod.

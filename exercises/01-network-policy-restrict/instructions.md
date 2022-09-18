@@ -4,7 +4,7 @@ You are tasked to lock down communication between Pods with the help of network 
 
 > **_NOTE:_** Without a network policy controller, network policies won't have any effect. You need to configure a network overlay solution that provides this controller. You'll have to go through some extra steps to install and enable the network provider Cilium. Without adhering to the proper prerequisites, network policies won't have any effect. You can find installation guidance in the file [cilium-setup.md](./cilium-setup.md).
 
-1. Create the objects from the file `setup.yaml`.
+1. Create the objects from the file [`setup.yaml`](./setup.yaml).
 2. Inspect the Pods and wait until they transition into the "Running" status.
 3. Create a network policy that blocks _all_ inter-Pod ingress communication for the namespace `g04`.
 4. Verify that the Pod `frontend` in the `g04` namespace cannot talk to the Pod `backend` using the `wget` tool.
