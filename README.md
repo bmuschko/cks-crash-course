@@ -14,6 +14,7 @@ All [exercises](./exercises) are numbered and live in dedicated directories star
 
 ## Additional Resources
 
+* 📚 [O'Reilly: Certified Kubernetes Security Specialist (CKS) Study Guide](https://learning.oreilly.com/library/view/certified-kubernetes-security/9781098132965/)
 * 📚 [O'Reilly: Certified Kubernetes Administrator (CKA) Study Guide](https://learning.oreilly.com/library/view/certified-kubernetes-administrator/9781098107215/)
 * 🎞️ [KodeKloud: Certified Kubernetes Security Specialist (CKS)](https://kodekloud.com/courses/certified-kubernetes-security-specialist-cks/)
 * 🎞️ [Udemy: Kubernetes CKS 2022 Complete Course - Theory - Practice](https://www.udemy.com/course/certified-kubernetes-security-specialist)
