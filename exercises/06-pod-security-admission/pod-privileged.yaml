@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privileged-container
+  namespace: k29
+spec:
+  containers:
+  - image: bitnami/nginx:1.21.6
+    name: secured-container
+    securityContext:
+      runAsNonRoot: true
+      privileged: true
+      allowPrivilegeEscalation: true
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile:
+        type: RuntimeDefault
