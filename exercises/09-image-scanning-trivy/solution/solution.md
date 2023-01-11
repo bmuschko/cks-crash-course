@@ -44,7 +44,7 @@ $ trivy image alpine:3.13.4
 $ trivy image elastic/logstash:7.13.3
 ```
 
-If you look closely add the list of vulnerabilites, you will find that all images contain issues with "CRITICAL" severity. As a result, delete all Pods.
+If you look closely at the list of vulnerabilites, you will find that all images contain issues with "CRITICAL" severity. As a result, delete all Pods.
 
 ```
 $ kubectl delete pod backend -n r61
