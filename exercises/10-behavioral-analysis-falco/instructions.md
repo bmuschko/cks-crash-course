@@ -2,7 +2,7 @@
 
 Your task is to use [Falco](https://falco.org/docs) for behavioral analysis purposes. Inspect the Falco logs, reconfigure the output format, and change the output channel to a file.
 
-> **_NOTE:_** Falco is already running as a systemd service on the worker node `kube-worker-1`.
+> **_NOTE:_** If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md). Falco is already running as a systemd service on the worker node `kube-worker-1`.
 
 1. Open an interactive shell to a worker node.
 2. Inspect the process running in the existing Pod named `malicious`. Have a look at the Falco logs and see if a rule created a log for the process.
