@@ -1,61 +1,86 @@
 # Solution
 
-Shell into a worker node.
-
-Create the nginx Pod with the following command:
+Open an interactive shell into the cluster node named `kube-worker-1`:
 
 ```
-$ kubectl run nginx --image=nginx:1.20.2
-pod/nginx created
+$ vagrant ssh kube-worker-1
 ```
 
-Wait until the Pod transitions into the "Running" status.
+Check the status of the existing Pod. The output of the command should indicate the existence of the Pod. Wait until the Pod transitions into the "Running" status.
 
 ```
-$ kubectl get pod nginx
-NAME    READY   STATUS    RESTARTS   AGE
-nginx   1/1     Running   0          17s
+$ kubectl get pod malicious
+NAME        READY   STATUS    RESTARTS   AGE
+malicious   1/1     Running   0          13s
 ```
 
-Create the Falco rules file named `falco-open-shell.yaml`. The contents could look as follows:
+Inspect the command and arguments of the running Pod named `malicious`. You will see that it tries to append a message to the file `/etc/threat`.
 
 ```
-$ cat falco-open-shell.yaml
-- macro: container
-  condition: container.id != host
-
-- macro: spawned_process
-  condition: evt.type = execve and evt.dir=<
-
-- rule: run_shell_in_container
-  desc: a shell was spawned by a non-shell program in a container. Container entrypoints are excluded.
-  condition: container and proc.name = bash and spawned_process and proc.pname exists and not proc.pname in (bash, docker)
-  output: "Shell spawned in a container other than entrypoint (user=%user.name container_id=%container.id container_name=%container.name shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline)"
-  priority: WARNING
+$ kubectl get pod malicious -o jsonpath='{.spec.containers[0].args}'
+["/bin/sh","-c","while true; do echo 'attacker intrusion' \u003e\u003e /etc/threat; sleep 5; done"]
 ```
 
-Execute Falco with the following command.
+One of Falco’s default rules monitors file operations that try to write to the `/etc` directory. You can find a message for every write attempt in standard output.
 
 ```
-$ sudo falco -r falco-open-shell.yaml -M 120
-Fri May 13 14:02:59 2022: Falco version 0.31.1 (driver version b7eb0dd65226a8dc254d228c8d950d07bf3521d2)
-Fri May 13 14:02:59 2022: Falco initialized with configuration file /etc/falco/falco.yaml
-Fri May 13 14:02:59 2022: Loading rules from file rules.yaml:
-Rules match ignored syscall: warning (ignored-evttype):
-         loaded rules match the following events: access,brk,close,cpu_hotplug,drop,epoll_wait,eventfd,fcntl,fstat,fstat64,futex,getcwd,getdents,getdents64,getegid,geteuid,getgid,getpeername,getresgid,getresuid,getrlimit,getsockname,getsockopt,getuid,infra,k8s,llseek,lseek,lstat,lstat64,mesos,mmap,mmap2,mprotect,munmap,nanosleep,notification,page_fault,poll,ppoll,pread,preadv,procinfo,pwrite,pwritev,read,readv,recv,recvmmsg,select,semctl,semget,semop,send,sendfile,sendmmsg,setrlimit,shutdown,signaldeliver,splice,stat,stat64,switch,sysdigevent,timerfd_create,write,writev;
-         but these events are not returned unless running falco with -A
-Fri May 13 14:02:59 2022: Starting internal webserver, listening on port 8765
+$ sudo journalctl -fu falco
+Apr 09 15:23:07 kube-worker-1 falco[17603]: 15:23:07.676235231: Error File below /etc opened for writing (user=root user_loginuid=-1 command=sh -c while true; do echo 'attacker intrusion' >> /etc/threat; sleep 5; done pid=13920 parent=containerd-shim pcmdline=containerd-shim -namespace moby -id e900d9ed474a8409241949b48011e7e0fadde7a83cda08cd7386f1a3ae1f5553 -address /run/containerd/containerd.sock file=/etc/threat program=sh gparent=systemd ggparent=<NA> gggparent=<NA> container_id=e900d9ed474a image=alpine)
+...
 ```
 
-Open another shell to the worker node and exec into the container of the `nginx` Pod using the `bash` command.
+Stop the running command with `CTRL + C`.
+
+Find the rule that produces the message in `/etc/falco/falco_rules.yaml` by searching for the string "etc opened for writing". The rule looks as follows.
+
+```yaml
+- rule: Write below etc
+  desc: an attempt to write to any file below /etc
+  condition: write_etc_common
+  output: "File below /etc opened for writing (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline pid=%proc.pid parent=%proc.pname pcmdline=%proc.pcmdline file=%fd.name program=%proc.name gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] container_id=%container.id image=%container.image.repository)"
+  priority: ERROR
+  tags: [filesystem, mitre_persistence]
+```
+
+Copy the rule to the file `/etc/falco/falco_rules.local.yaml` and modify the output definition, as follows.
+
+```yaml
+- rule: Write below etc
+  desc: an attempt to write to any file below /etc
+  condition: write_etc_common
+  output: "%evt.time,%user.name,%container.id"
+  priority: ERROR
+  tags: [filesystem, mitre_persistence]
+```
+
+Restart the Falco service, and find the changed output in the Falco logs.
 
 ```
-$ kubectl exec -it nginx -- bash
-root@nginx:/#
+$ sudo systemctl restart falco
+$ sudo journalctl -fu falco
+Apr 09 15:24:57 kube-worker-1 falco[22412]: 15:24:57.713602963: Error 15:24:57.713602963,root,e900d9ed474a...
 ```
 
-The shell running the `falco` executable should render a warning message similar to the one below.
+Stop the running command with `CTRL + C`.
+
+Edit the file `/etc/falco/falco.yaml` to change the output channel. Disable standard output, enable file output, and point the `file_output` attribute to the file `/var/log/falco.log`. The resulting configuration will look as shown below.
+
+```yaml
+file_output:
+  enabled: true
+  keep_alive: false
+  filename: /var/log/falco.log
+
+stdout_output:
+  enabled: false
+```
+
+The log file will now append Falco logs.
 
 ```
-14:03:36.445564004: Warning shell in a container (user=root container_name=k8s_nginx_nginx_default_38090d73-0fb8-4de1-b46c-42705576a05d_0)
+$ sudo tail -f /var/log/falco.log
+15:26:07.738036030: Error 15:26:07.738036030,root,e900d9ed474a
+...
 ```
+
+Stop the running command with `CTRL + C`.
