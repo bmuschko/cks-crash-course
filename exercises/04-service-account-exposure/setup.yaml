@@ -15,7 +15,7 @@ metadata:
   name: operations-clusterrole
 rules:
 - apiGroups: [""]
-  resources: ["pods","configmaps","secrets"]
+  resources: ["pods", "configmaps", "secrets"]
   verbs: ["list", "watch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
