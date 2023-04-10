@@ -49,7 +49,7 @@ remote file exists
 / # exit
 ```
 
-## Instating the "deny-all-ingress" network policy
+## Instantiating the "deny-all-ingress" network policy
 
 Create a ["deny-all-ingress" network policy](https://kubernetes.io/docs/concepts/services-networking/network-policies/#default-deny-all-ingress-traffic) for the `g04` namespace in the form of a YAML manifest, as shown below.
 
