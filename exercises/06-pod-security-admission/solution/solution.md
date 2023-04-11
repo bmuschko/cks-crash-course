@@ -2,7 +2,7 @@
 
 ## Creating the Namespace
 
-Start by defining the namespace that defines Pod Security Standard as a label. The contents stored in the YAML manifest file `namespace.yaml` could look as follows:
+Start by defining the namespace that defines a Pod Security Standard as a label. The contents stored in the YAML manifest file `namespace.yaml` could look as follows:
 
 ```yaml
 apiVersion: v1
