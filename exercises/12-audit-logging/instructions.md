@@ -1,6 +1,6 @@
 # Exercise 12
 
-The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. In your role as an administrator, you are tasked to configure audit logging for specific events.
+The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. You have been tasked to configure audit logging for specific events.
 
 > **_NOTE:_** If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
 
