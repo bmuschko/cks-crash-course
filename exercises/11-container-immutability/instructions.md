@@ -1,4 +1,4 @@
-# Excercise 11
+# Exercise 11
 
 You are an administrator of a Kubernetes cluster running a couple of existing Pods. It's your job to inspect the containers defined by the Pods for immutability. Delete all Pods that do not follow typical immutability best practices.
 
