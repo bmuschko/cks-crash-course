@@ -2,7 +2,7 @@
 
 Vulnerabilities in software and IT infrastructure, once exploited, can pose a major threat to organizations. The Cloud Native Computing Foundation (CNCF) developed the [Certified Kubernetes Security Specialist (CKS) certification](https://www.cncf.io/certification/cks/) to verify a Kubernetes administrator’s proficiency to protect a Kubernetes cluster and the cloud-native software operated in it. The exam is different from the typical multi-choice format of other certifications. It’s completely performance-based and requires deep knowledge of the tasks at hand under immense time pressure. Are you ready to pass the test on the first go?
 
-This practical course is designed to walk you through all the topics covered in the exam to fully prepare to pass the certification exam. The trainer, [CKAD](https://www.credly.com/badges/98ba0895-b669-47d5-8206-50b7223940e3), [CKA](https://www.credly.com/badges/9a599e63-6155-422e-b169-8eaaed5369ab), and [CKS](https://www.credly.com/earner/earned/badge/24cb66c7-74ac-461a-95a4-d272d42bfdaa), Benjamin Muschko, will also share his personal experience with preparing for all aspects of the exam.
+This practical course is designed to walk you through all the topics covered in the exam to fully prepare to pass the certification exam. The trainer, [CKAD](https://www.credly.com/badges/98ba0895-b669-47d5-8206-50b7223940e3), [CKA](https://www.credly.com/badges/9a599e63-6155-422e-b169-8eaaed5369ab), and [CKS](https://www.credly.com/badges/24cb66c7-74ac-461a-95a4-d272d42bfdaa), Benjamin Muschko, will also share his personal experience with preparing for all aspects of the exam.
 
 ## Prerequisites
 
