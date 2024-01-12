@@ -35,7 +35,7 @@ replicaset.apps/nginx-deployment-9456bbbf9   3         3         3       18s
 Run the OpenSSL command to generate the TLS certificate and key.
 
 ```
-$ openssl req -nodes -new -x509 -keyout accounting.key -out accounting.crt -subj "/CN=accounting.tls"
+$ openssl req -nodes -new -x509 -keyout accounting.key -out accounting.crt -subj "/CN=accounting.internal.acme.com"
 Generating a 2048 bit RSA private key
 ...........................+++
 ..........................+++
