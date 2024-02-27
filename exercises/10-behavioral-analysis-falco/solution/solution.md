@@ -42,7 +42,13 @@ Find the rule that produces the message in `/etc/falco/falco_rules.yaml` by sear
   tags: [filesystem, mitre_persistence]
 ```
 
-Copy the rule to the file `/etc/falco/falco_rules.local.yaml` and modify the output definition, as follows.
+Edit the file `/etc/falco/falco_rules.local.yaml`.
+
+```
+$ sudo vim /etc/falco/falco_rules.local.yaml
+```
+
+Modify the rule from `/etc/falco/falco_rules.yaml` and add it to `/etc/falco/falco_rules.local.yaml`, as follows.
 
 ```yaml
 - rule: Write below etc
@@ -63,7 +69,13 @@ Apr 09 15:24:57 kube-worker-1 falco[22412]: 15:24:57.713602963: Error 15:24:57.7
 
 Stop the running command with `CTRL + C`.
 
-Edit the file `/etc/falco/falco.yaml` to change the output channel. Disable standard output, enable file output, and point the `file_output` attribute to the file `/var/log/falco.log`. The resulting configuration will look as shown below.
+Edit the file `/etc/falco/falco.yaml` in order to change the output channel.
+
+```
+$ sudo vim /etc/falco/falco.yaml
+```
+
+Disable standard output, enable file output, and point the `file_output` attribute to the file `/var/log/falco.log`. The resulting configuration will look as shown below.
 
 ```yaml
 file_output:

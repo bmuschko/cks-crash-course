@@ -1,5 +1,11 @@
 # Solution
 
+Open an interactive shell into the cluster node named `kube-worker-1`:
+
+```
+$ vagrant ssh kube-worker-1
+```
+
 Before creating and enforcing the AppArmor profile, check the logs of the Pod `network-call`. The Pod run a `ping` command every 5 seconds. The command should be successful.
 
 ```
@@ -12,7 +18,14 @@ PING google.com (172.217.18.110): 56 data bytes
 round-trip min/avg/max/stddev = 31.155/31.155/31.155/0.000 ms
 ```
 
-Create the AppArmor profile at `/etc/apparmor.d/network-deny` using the command `sudo vim /etc/apparmor.d/network-deny`. The contents of the file could look as follows.
+On the worker node, create the AppArmor profile at `/etc/apparmor.d/network-deny`.
+
+```
+$ mkdir -p /etc/apparmor.d
+$ sudo vim /etc/apparmor.d/network-deny
+```
+
+The contents of the file could look as follows.
 
 ```
 #include <tunables/global>
@@ -54,35 +67,7 @@ spec:
     command: ["sh", "-c", "while true; do ping -c 1 google.com; sleep 5; done"]
 ```
 
-Create the Pod from the manifest. You will see that the status is "Blocked". The reason for this status is that the AppArmor profile does not exist on the worker node. That's where the Kubernetes scheduler wants to run the Pod.
-
-```
-$ kubectl create -f pod.yaml
-pod/network-call created
-$ kubectl get pod network-call
-NAME           READY   STATUS    RESTARTS   AGE
-network-call   0/1     Blocked   0          22s
-```
-
-Exit out of the control plane node and SSH into the worker node. Create the AppArmor profile at `/etc/apparmor.d/network-deny` using the command `sudo vim /etc/apparmor.d/network-deny`. The contents of the file could look as follows.
-
-```
-#include <tunables/global>
-
-profile network-deny flags=(attach_disconnected) {
-  #include <abstractions/base>
-
-  network,
-}
-```
-
-Enforce the AppArmor profile by running the following command.
-
-```
-$ sudo apparmor_parser /etc/apparmor.d/network-deny
-```
-
-After a couple of seconds, the Pod should transition into the "Running" status.
+Create the Pod from the manifest. After a couple of seconds, the Pod should transition into the "Running" status.
 
 ```
 $ kubectl get pod network-call
