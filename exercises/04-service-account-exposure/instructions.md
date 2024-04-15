@@ -10,10 +10,10 @@
 </p>
 </details>
 
+The cluster defines a ClusterRole and ClusterRoleBinding that map a Service Account for listing, watching, and deleting the API resources Pods, ConfigMaps, and Secrets. Two Pods defined in the namespace `k97` use the service account. You are tasked with reducing the permissions to the minimal set of permissions needed for the Pods based on the command running in the container.
+
 > [!NOTE]
 > If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Modifying RBAC Permissions for a ServiceAccount"](https://learning.oreilly.com/scenarios/modifying-rbac-permissions/9781098149710/).
-
-The cluster defines a ClusterRole and ClusterRoleBinding that map a Service Account for listing, watching, and deleting the API resources Pods, ConfigMaps, and Secrets. Two Pods defined in the namespace `k97` use the service account. You are tasked with reducing the permissions to the minimal set of permissions needed for the Pods based on the command running in the container.
 
 1. Create the objects from the file [`setup.yaml`](./setup.yaml).
 2. Inspect the Pods and wait until they transition into the "Running" status.
