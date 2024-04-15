@@ -1,6 +1,16 @@
 # Excerise 7
 
+<details>
+<summary><b>Quick Reference</b></summary>
+<p>
+
+* Namespace: `default`<br>
+* Documentation: [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
 Your organization decides to introduce and enforce policies for Pods. You will create an Object Policy Agent (OPA) constraint and then verify the correct enforcement.
+
+> [!NOTE]
+> If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Governing Object Creation with OPA Gatekeeper"](https://learning.oreilly.com/scenarios/governing-object-creation/9781098149888/).
 
 1. Install the OPA gatekeeper objects with the version 3.7. Refer to the [OPA gatekeeper installation documentation](https://open-policy-agent.github.io/gatekeeper/website/docs/install/).
 2. Ensure that the OPA gatekeeper objects transition into the "Running" status.

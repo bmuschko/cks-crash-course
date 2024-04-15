@@ -1,8 +1,20 @@
 # Exercise 12
 
+<details>
+<summary><b>Quick Reference</b></summary>
+<p>
+
+* Namespace: `kube-system`, `default`<br>
+* Documentation: [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/), [kube-apiserver
+](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/), [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
+
 The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. You have been tasked to configure audit logging for specific events.
 
-> **_NOTE:_** If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
+> [!IMPORTANT]
+> If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
+
+> [!NOTE]
+> If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Configuring Audit Logging for a Log Backend"](https://learning.oreilly.com/scenarios/configuring-audit-logging/9781098150020/).
 
 1. Create the audit policy file named `/etc/kubernetes/audit/rules/audit-policy.yaml`.
 2. Add a rule for logging `Metadata`-level events for Deployments, Pods, and Services in all namespaces.
