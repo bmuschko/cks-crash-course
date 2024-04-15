@@ -7,6 +7,9 @@
 * Namespace: `d31`<br>
 * Documentation: [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 
+</p>
+</details>
+
 A Pod needs username and password credentials for communicating with a third-party web service. Define a Secret for basic authentication and inject the credentials into the container as environment variables.
 
 > [!NOTE]

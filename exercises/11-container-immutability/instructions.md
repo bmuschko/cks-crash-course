@@ -7,6 +7,9 @@
 * Namespace: `h92`<br>
 * Documentation: [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 
+</p>
+</details>
+
 You are an administrator of a Kubernetes cluster running a couple of existing Pods. It's your job to inspect the containers defined by the Pods for immutability. Delete all Pods that do not follow typical immutability best practices.
 
 > [!NOTE]

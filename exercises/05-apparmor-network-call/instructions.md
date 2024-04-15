@@ -7,6 +7,9 @@
 * Namespace: `default`<br>
 * Documentation: [Restrict a Container's Access to Resources with AppArmor](https://kubernetes.io/docs/tutorials/security/apparmor/)
 
+</p>
+</details>
+
 You are tasked to prevent a Pod from making any network calls with the help of [AppArmor](https://apparmor.net/). You will create a AppArmor profile, and enforce the profile on the node that runs a specific Pod.
 
 > [!IMPORTANT]

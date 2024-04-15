@@ -7,6 +7,9 @@
 * Namespace: `k29`<br>
 * Documentation: [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/)
 
+</p>
+</details>
+
 You are tasked with defining a Pod Security Admission rule that should control the creation of Pods in the namespace `k29`.
 
 > [!NOTE]

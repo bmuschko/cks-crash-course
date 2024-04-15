@@ -7,6 +7,9 @@
 * Namespace: `g04`, `default`<br>
 * Documentation: [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/), [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
 
+</p>
+</details>
+
 You are tasked to lock down communication between Pods with the help of network policies. The namespace `g04` contains two Pods named `frontend` and `backend`. The `default` namespace runs a Pod named `other`. The goal is to only allow the `frontend` Pod to talk to the `backend` Pod. Any other traffic should be disallowed.
 
 > [!IMPORTANT]

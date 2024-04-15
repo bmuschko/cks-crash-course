@@ -7,6 +7,9 @@
 * Namespace: `default`<br>
 * Documentation: [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
 
+</p>
+</details>
+
 Your organization decides to introduce and enforce policies for Pods. You will create an Object Policy Agent (OPA) constraint and then verify the correct enforcement.
 
 > [!NOTE]

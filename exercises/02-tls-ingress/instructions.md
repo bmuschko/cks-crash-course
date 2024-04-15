@@ -7,6 +7,9 @@
 * Namespace: `t75`<br>
 * Documentation: [Ingresses](https://kubernetes.io/docs/concepts/services-networking/ingress/), [Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
+</p>
+</details>
+
 You are tasked to create an Ingress with TLS termination. Create the relevant objects using the imperative or declarative approach.
 
 > [!IMPORTANT]

@@ -8,6 +8,9 @@
 * Documentation: [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/), [kube-apiserver
 ](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/), [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
 
+</p>
+</details>
+
 The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. You have been tasked to configure audit logging for specific events.
 
 > [!IMPORTANT]

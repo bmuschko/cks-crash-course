@@ -7,6 +7,9 @@
 * Namespace: `k97`<br>
 * Documentation: [Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), [Configure Service Accounts for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 
+</p>
+</details>
+
 > [!NOTE]
 > If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Modifying RBAC Permissions for a ServiceAccount"](https://learning.oreilly.com/scenarios/modifying-rbac-permissions/9781098149710/).
 

@@ -7,6 +7,9 @@
 * Namespace: `default`<br>
 * Documentation: [Trivy](https://github.com/aquasecurity/trivy)
 
+</p>
+</details>
+
 Your task is to use [Falco](https://falco.org/docs) for behavioral analysis purposes. Inspect the Falco logs, reconfigure the output format, and change the output channel to a file.
 
 > [!IMPORTANT]

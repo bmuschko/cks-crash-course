@@ -7,6 +7,9 @@
 * Namespace: N/A<br>
 * Documentation: [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
+</p>
+</details>
+
 You logged into a Kubernetes clusters and are planning to verifying the validity of the Kubernetes binaries `kubectl`, `kubeadm`, and `kubelet`. Use the SHA256 checksums for comparison.
 
 > [!IMPORTANT]
