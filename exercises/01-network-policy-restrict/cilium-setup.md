@@ -8,7 +8,7 @@ If you are using minikube, you will need to use the following command line optio
 $ minikube start --network-plugin=cni --cni=false
 ```
 
-The following commands to download Cilium for use with Minikube on MacOSX.
+The following commands to download Cilium for use with Minikube on MacOSX. The binary and commands will be different on other operating systems.
 
 ```
 $ curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-darwin-amd64.tar.gz{,.sha256sum}
