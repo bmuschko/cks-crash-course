@@ -121,10 +121,7 @@ spec:
   - Ingress
   ingress:
   - from:
-    - namespaceSelector:
-        matchLabels:
-          app: orion
-      podSelector:
+    - podSelector:
         matchLabels:
           tier: frontend
     ports:
