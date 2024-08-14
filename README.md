@@ -20,6 +20,6 @@ All [exercises](./exercises) are numbered and live in dedicated directories star
 * 🎞️ [KodeKloud: Certified Kubernetes Security Specialist (CKS)](https://kodekloud.com/courses/certified-kubernetes-security-specialist-cks/)
 * 🎞️ [Udemy: Kubernetes CKS 2022 Complete Course - Theory - Practice](https://www.udemy.com/course/certified-kubernetes-security-specialist)
 * 🎞️ [A Cloud Guru: Certified Kubernetes Security Specialist (CKS)](https://learn.acloud.guru/course/certified-kubernetes-security-specialist)
-* 🧪 [O'Reilly: Katacoda CKS Practice Labs](https://learning.oreilly.com/playlists/c94bd9b1-6277-4eb4-b442-9555ab6ad594/)
+* 🧪 [O'Reilly: CKAD Interactive Practice Labs](https://learning.oreilly.com/playlists/c94bd9b1-6277-4eb4-b442-9555ab6ad594/)
 * 🧪 [Killer Shell: CKS Simulator](https://killer.sh/cks)
 * 🧪 [Study4Exam: Certified Kubernetes Security Specialist Exam](https://www.study4exam.com/linux-foundation/info/cks)
