@@ -2,8 +2,10 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: network-call
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/network-call: localhost/network-deny
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: network-deny
 spec:
   containers:
   - name: network-call
