@@ -32,7 +32,8 @@ The contents of the file could look as follows.
 
 profile network-deny flags=(attach_disconnected) {
   #include <abstractions/base>
-
+  file,
+  # Deny all network access
   network,
 }
 ```
