@@ -5,7 +5,7 @@
 <p>
 
 * Namespace: `default`<br>
-* Documentation: [Trivy](https://github.com/aquasecurity/trivy)
+* Documentation: [Falco](https://falco.org/docs/)
 
 </p>
 </details>
