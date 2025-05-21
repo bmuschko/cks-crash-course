@@ -14,7 +14,7 @@
 The DevOps team you are working on decides to keep track of the events occurring in your Kubernetes cluster. You have been tasked to configure audit logging for specific events.
 
 > [!IMPORTANT]
-> If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
+> If you do not have a Linux-based cluster available, you can start one up with Vagrant and VMWare. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
 
 > [!NOTE]
 > If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Configuring Audit Logging for a Log Backend"](https://learning.oreilly.com/scenarios/configuring-audit-logging/9781098150020/).
