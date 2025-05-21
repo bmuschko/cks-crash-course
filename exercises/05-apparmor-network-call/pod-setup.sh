@@ -10,4 +10,4 @@ while true; do
   fi
 done
 
-kubectl run network-call --image=alpine/curl:3.14 -- /bin/sh -c 'while true; do ping -c 1 google.com; sleep 5; done'
+kubectl run network-call --image=alpine/curl:8.12.1 -- /bin/sh -c 'while true; do ping -c 1 google.com; sleep 5; done'

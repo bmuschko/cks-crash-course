@@ -65,7 +65,7 @@ spec:
       localhostProfile: network-deny
   containers:
   - name: network-call
-    image: alpine/curl:3.14
+    image: alpine/curl:8.12.1
     command: ["sh", "-c", "while true; do ping -c 1 google.com; sleep 5; done"]
 ```
 
