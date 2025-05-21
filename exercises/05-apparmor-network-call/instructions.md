@@ -13,7 +13,7 @@
 You are tasked to prevent a Pod from making any network calls with the help of [AppArmor](https://apparmor.net/). You will create a AppArmor profile, and enforce the profile on the node that runs a specific Pod.
 
 > [!IMPORTANT]
-> AppArmor is a Linux-only tool. For that reason, this exercise requires a cluster running on Linux. If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
+> AppArmor is a Linux-only tool. For that reason, this exercise requires a cluster running on Linux. If you do not have a Linux-based cluster available, you can start one up with Vagrant and VMWare. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md).
 
 > [!NOTE]
 > If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Using AppArmor to Prevent Any Incoming and Outgoing Network Traffic"](https://learning.oreilly.com/scenarios/using-apparmor-to/9781098149819/).

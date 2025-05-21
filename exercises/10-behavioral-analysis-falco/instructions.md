@@ -13,7 +13,7 @@
 Your task is to use [Falco](https://falco.org/docs) for behavioral analysis purposes. Inspect the Falco logs, reconfigure the output format, and change the output channel to a file.
 
 > [!IMPORTANT]
-> If you do not have a Linux-based cluster available, you can start one up with Vagrant and VirtualBox. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md). Falco is already running as a systemd service on the worker node `kube-worker-1`.
+> If you do not have a Linux-based cluster available, you can start one up with Vagrant and VMWare. You can find guidance in the file [vagrant-setup.md](../common/vagrant-setup.md). Falco is already running as a systemd service on the worker node `kube-worker-1`.
 
 > [!NOTE]
 > If you do not already have a cluster, you can create one by using minikube or you can use the O'Reilly interactive lab ["Configuring and Running Falco for Intrusion Detection"](https://learning.oreilly.com/scenarios/configuring-and-running/9781098150006/).
