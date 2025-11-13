@@ -65,7 +65,7 @@ pod1-svc   ClusterIP   10.102.238.13   <none>        80/TCP    7m3s
 
 You can find most of the information in Istio documentation page named [Mutual TLS Migration](https://istio.io/latest/docs/tasks/security/authentication/mtls-migration/). Start with PERMISSIVE mode (accepts both encrypted and plain text). Create the following content in the file _mtls-peerauthentication.yaml_.
 
-```
+```yaml
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -96,7 +96,7 @@ $ kubectl -n istio-test exec -ti pod2 -c sleep -- curl 10.244.0.5
 
 Change the PeerAuthentication object to use STRICT mode (only accept encrypted communication). Modify the content in the file _mtls-peerauthentication.yaml_.
 
-```
+```yaml
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:

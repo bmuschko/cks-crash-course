@@ -1,5 +1,7 @@
 # Solution
 
+## Preparing the Cluster
+
 Get your node names first.
 
 ```
@@ -28,6 +30,8 @@ minikube-m02   Ready    <none>          25m   v1.29.2   beta.kubernetes.io/arch=
 minikube-m03   Ready    <none>          25m   v1.29.2   beta.kubernetes.io/arch=arm64,beta.kubernetes.io/os=linux,kubernetes.io/arch=arm64,kubernetes.io/hostname=minikube-m03,kubernetes.io/os=linux,minikube.k8s.io/commit=dd5d320e41b5451cdf3c01891bc4e13d189586ed-dirty,minikube.k8s.io/name=minikube,minikube.k8s.io/primary=false,minikube.k8s.io/updated_at=2025_11_12T15_45_26_0700,minikube.k8s.io/version=v1.35.0,node-role=node2
 ```
 
+## Verifying WireGuard Encryption
+
 Validate the setup in a new terminal window based on the instructions provided in the [Cillium documentation](https://docs.cilium.io/en/latest/security/network/encryption-wireguard/#validate-the-setup).
 
 ```
@@ -40,6 +44,8 @@ root@minikube-m02:/home/cilium# tcpdump -n -i cilium_wg0
 ...
 ```
 
+## Scheduling the Pods
+
 Schedule the Pods on the nodes.
 
 ```
@@ -48,6 +54,8 @@ namespace/encryption-test created
 pod/pod1 created
 pod/pod2 created
 ```
+
+## Testing Encrypted Communication
 
 Verify that the Pods are running on different nodes.
 
@@ -58,7 +66,7 @@ pod1   1/1     Running   0          15s   10.0.0.60   minikube-m02   <none>     
 pod2   1/1     Running   0          15s   10.0.2.99   minikube-m03   <none>           <none>
 ```
 
-Get pod1's IP address and test connectivity from pod2 to pod1. You should also see encrypted calls via the `cilium_wg0` tunnel device in the other terminal window.
+Get `pod1`'s IP address and test connectivity from `pod2` to `pod1`.
 
 ```
 $ kubectl -n encryption-test get pod pod1 -o jsonpath='{.status.podIP}'
@@ -88,6 +96,10 @@ Commercial support is available at
 </body>
 </html>
 ```
+
+You should also see encrypted calls via the `cilium_wg0` tunnel device in the other terminal window.
+
+## Creating a Cillium Encryption Policy
 
 Create a policy to enforce encryption for specific Pods in the file _cillium-network-policy.yaml_.
 
