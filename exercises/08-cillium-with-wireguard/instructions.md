@@ -22,5 +22,5 @@ Cilium is a CNI (Container Network Interface) plugin that provides networking, s
 2. List the cluster nodes. You should have at least 2 worker nodes. Assign the label `node-role=node1` to worker node 1, and the label `node-role=node2` to worker node 2. Verify the correct assignment of labels.
 3. Create the Pods in the namespace `encryption-test` by applying the YAML manifest in [`setup.yaml`](./setup.yaml).
 4. Make a network call from `pod2` to `pod1`. The network packets should be encypted by WireGuard.
-5. Create a CiliumNetworkPolicy that allows the call from `pod2` to `pod1`.
+5. Create a CiliumNetworkPolicy that allows the call from `pod2` to `pod1`. You can find examples [here](https://docs.cilium.io/en/stable/security/policy/language/#policy-examples).
 6. Make a network call from `pod2` to `pod1`. The communication should still be allowed.
