@@ -15,9 +15,6 @@ A Software Bill of Materials (SBOM) is a comprehensive inventory of all componen
 > [!IMPORTANT]
 > The BOM tool is not installed by default. You can find installation guidance in the file [bom-setup.md](./bom-setup.md).
 
-> [!NOTE]
-> This exercise requires the BOM tool to be installed on your local machine. You can download it from the [GitHub releases page](https://github.com/kubernetes-sigs/bom/releases).
-
 1. Verify the installation of the BOM tool by checking the version.
 2. Generate an SBOM for the container image `registry.k8s.io/kube-apiserver:v1.21.0`. Save the output to a file named `kube-apiserver-sbom.spdx`.
 3. Inspect the generated SBOM document by viewing its outline structure.
