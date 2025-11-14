@@ -15,9 +15,6 @@ Istio is a service mesh that provides traffic management, security, and observab
 > [!IMPORTANT]
 > This exercise requires a cluster with Istio installed. You can find installation guidance in the file [istio-setup.md](./istio-setup.md).
 
-> [!NOTE]
-> If you do not already have a cluster with Istio, you can create one by using minikube or refer to the [Istio Getting Started guide](https://istio.io/latest/docs/setup/getting-started/).
-
 1. Verify that Istio is installed and running in the cluster. Check the control plane components.
 2. Create the namespace `istio-test` and enable automatic sidecar injection for Istio.
 3. Create the two Pods and a Service in the namespace `istio-test` by applying the YAML manifest in [`setup.yaml`](./setup.yaml).
