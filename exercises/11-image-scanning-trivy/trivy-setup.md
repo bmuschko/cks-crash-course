@@ -1,6 +1,6 @@
 ## Installing Trivy
 
-Refer to the [installation instructions of Trivy](https://aquasecurity.github.io/trivy/latest/getting-started/installation/) to download and install the binary. The executable should be available on your `PATH` environment variable. The output below uses the Trivy `version` command indicating that version 0.26.0 has been installed.
+Refer to the [installation instructions of Trivy](https://trivy.dev/docs/latest/getting-started/) to download and install the binary. The executable should be available on your `PATH` environment variable. The output below uses the Trivy `version` command indicating that version 0.26.0 has been installed.
 
 ```
 $ trivy version
